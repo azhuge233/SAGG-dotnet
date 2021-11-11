@@ -42,7 +42,7 @@ namespace SAGG.Services {
 					var iconPath2 = $"{GameSavePath}{Path.DirectorySeparatorChar}IconsFolder{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars()))}{fileExtension}";
 
 					Output.InfoR(Strings.FileSaveStrings.ClearCurrentLine);
-					Output.InfoR($"\rDownloading {achievement.Name}{fileExtension}                                     ");
+					Output.InfoR($"\rDownloading {achievement.Name}{fileExtension}");
 					var imageBytes = await client.GetByteArrayAsync(achievement.IconUri);
 					//await File.WriteAllBytesAsync(iconPath, imageBytes);
 
