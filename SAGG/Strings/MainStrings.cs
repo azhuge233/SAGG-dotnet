@@ -1,5 +1,5 @@
 ﻿namespace SAGG.Strings {
-	public static class MainStrings {
-		public const string ValidationFailed = "Please provide a correct AppID.";
+	internal static class MainStrings {
+		internal const string ValidationFailed = "Please provide a correct AppID.";
 	}
 }

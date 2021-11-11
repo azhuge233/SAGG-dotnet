@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using SAGG.Modules;
 using SAGG.Services;
 
 namespace SAGG {
     class Program {
-         static void Main(string[] args) {
+         static async Task Main(string[] args) {
             try {
                 var services = DIBuilder.Build();
 
@@ -14,8 +13,10 @@ namespace SAGG {
                         throw new Exception(message: Strings.MainStrings.ValidationFailed);
                     }
 
-                    services.GetRequiredService<Scraper>().Scrape(args[0]);
-                    
+                    var htmlDoc = services.GetRequiredService<Scraper>().Scrape(args[0]);
+                    var result = services.GetRequiredService<Parser>().Parse(htmlDoc);
+
+                    await services.GetRequiredService<FileSaver>().Save(result.Item1, result.Item2);
                 }
             } catch (Exception ex) {
                 Output.Error(ex.Message);

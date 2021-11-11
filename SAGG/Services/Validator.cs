@@ -7,13 +7,12 @@ namespace SAGG.Services {
 				if(args.Length != 1) return false;
 
 				string appID = args[0];
-				if (string.IsNullOrWhiteSpace(appID) || appID.All(char.IsDigit)) return false;
+				if (string.IsNullOrWhiteSpace(appID) || !appID.All(char.IsDigit)) return false;
 
-				Output.Info(Strings.ValidateStrings.ValidateInfo);
+				Output.Success(Strings.ValidateStrings.ValidateInfo);
 				return true;
-			} catch (Exception ex) {
+			} catch (Exception) {
 				Output.Error(Strings.ValidateStrings.ValidateError);
-				Output.Error(ex.Message);
 				throw;
 			} finally {
 				Dispose();

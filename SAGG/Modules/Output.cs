@@ -1,22 +1,24 @@
 ﻿namespace SAGG.Modules {
-	public static class Output {
+	internal static class Output {
 
-		public static void ResetColor() {
+		internal static void ResetColor() {
 			Console.ResetColor();
 		}
-		public static void Error(string msg) { 
+		internal static void Error(string msg) { 
 			Console.ForegroundColor = ConsoleColor.Red;
 			Console.WriteLine(msg);
 			ResetColor();
 		}
-		public static void Warning(string msg) {
-			Console.ForegroundColor = ConsoleColor.Yellow;
+		internal static void Success(string msg) {
+			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine(msg);
 			ResetColor();
 		}
-		public static void Info(string msg) {
+		internal static void Info(string msg) {
 			Console.WriteLine(msg);
-			ResetColor();
+		}
+		internal static void InfoR(string msg) {
+			Console.Write(msg);
 		}
 	}
 }

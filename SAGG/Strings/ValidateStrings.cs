@@ -1,6 +1,6 @@
 ﻿namespace SAGG.Strings {
-	public static class ValidateStrings {
-		public const string ValidateError = "Error on validation";
-		public const string ValidateInfo = "Validation passed.";
+	internal static class ValidateStrings {
+		internal const string ValidateError = "Error on validation";
+		internal const string ValidateInfo = "Validation passed";
 	}
 }

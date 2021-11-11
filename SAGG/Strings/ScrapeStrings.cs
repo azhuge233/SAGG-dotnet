@@ -1,8 +1,11 @@
 ﻿namespace SAGG.Strings {
-	public static class ScrapeStrings {
-		public const string SteamUrl = "https://steamcommunity.com/stats/{0}/achievements";
-		public const string AcceptLanguageHeader = "zh-CN,zh;q=0.5,en-US;";
+	internal static class ScrapeStrings {
+		internal const string SteamUrl = "https://steamcommunity.com/stats/{0}/achievements";
+		internal const string UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36 Edg/95.0.1020.44";
+		internal const string Header = "Accept-Language: zh-CN,zh;q=0.9,en-US;";
 
-		public const string ScrapeError = "Scrape Error!";
+		internal const string ScrapeError = "Scrape Error!";
+		internal const string ScrapeStart = "Start scraping";
+		internal const string SrapeDone = "Done scraping";
 	}
 }

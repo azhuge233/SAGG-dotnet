@@ -3,10 +3,12 @@ using SAGG.Services;
 
 namespace SAGG.Modules {
 	internal static class DIBuilder {
-		public static IServiceProvider Build() { 
+		internal static IServiceProvider Build() { 
 			return new ServiceCollection()
 				.AddTransient<Validator>()
 				.AddTransient<Scraper>()
+				.AddTransient<Parser>()
+				.AddTransient<FileSaver>()
 				.BuildServiceProvider();
 		}
 	}
