@@ -11,7 +11,9 @@ namespace SAGG.Services {
 		internal async Task Save(string gameName, List<Achievements> achievements) {
 			try {
 				Output.Info(Strings.FileSaveStrings.SavingStart);
-				GameSavePath = $"{CurrentPath}{Path.DirectorySeparatorChar}{string.Join("_", gameName.Split(Path.GetInvalidPathChars()))}";
+				gameName = gameName.Replace("/", "_").Replace("\\", "_");
+				gameName = string.Join("_", gameName.Split(Path.GetInvalidPathChars()));
+				GameSavePath = $"{CurrentPath}{Path.DirectorySeparatorChar}{gameName}";
 
 				CreateFolder(achievements);
 				await SaveAchievementInfo(achievements);
@@ -38,8 +40,8 @@ namespace SAGG.Services {
 					var uriWithoutQuery = achievement.IconUri.GetLeftPart(UriPartial.Path);
 					var fileExtension = Path.GetExtension(uriWithoutQuery);
 
-					var iconPath1 = $"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars()))}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars()))}{fileExtension}";
-					var iconPath2 = $"{GameSavePath}{Path.DirectorySeparatorChar}IconsFolder{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars()))}{fileExtension}";
+					var iconPath1 = $"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_")}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_")}{fileExtension}";
+					var iconPath2 = $"{GameSavePath}{Path.DirectorySeparatorChar}IconsFolder{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_")}{fileExtension}";
 
 					Output.InfoR(Strings.FileSaveStrings.ClearCurrentLine);
 					Output.InfoR($"\rDownloading {achievement.Name}{fileExtension}");
@@ -73,7 +75,7 @@ namespace SAGG.Services {
 					sb.Clear();
 					sb.Append($"{achievement.Name}{Environment.NewLine}");
 					sb.Append($"{achievement.Description}{Environment.NewLine}");
-					await File.AppendAllTextAsync($"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars()))}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars()))}.txt", sb.ToString());
+					await File.AppendAllTextAsync($"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_")}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_")}.txt", sb.ToString());
 				}
 
 				Output.Success(Strings.FileSaveStrings.SavingInfoDone);
@@ -91,7 +93,7 @@ namespace SAGG.Services {
 				Directory.CreateDirectory($"{GameSavePath}{Path.DirectorySeparatorChar}IconsFolder");
 
 				foreach (var achievement in achievements) {
-					Directory.CreateDirectory($"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars()))}");
+					Directory.CreateDirectory($"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_")}");
 				}
 
 				Output.Success(Strings.FileSaveStrings.CreateFolderDone);
