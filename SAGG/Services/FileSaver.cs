@@ -5,7 +5,7 @@ using SAGG.Modules;
 
 namespace SAGG.Services {
 	internal class FileSaver:IDisposable {
-		private readonly string CurrentPath = $"{AppDomain.CurrentDomain.BaseDirectory}";
+		private readonly string CurrentPath = $"{Environment.CurrentDirectory}";
 		private string GameSavePath = String.Empty;
 
 		internal async Task Save(string gameName, List<Achievements> achievements) {
