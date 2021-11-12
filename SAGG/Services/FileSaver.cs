@@ -41,7 +41,7 @@ namespace SAGG.Services {
 					var fileExtension = Path.GetExtension(uriWithoutQuery);
 
 					var iconPath1 = $"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_")}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_")}{fileExtension}";
-					var iconPath2 = $"{GameSavePath}{Path.DirectorySeparatorChar}IconsFolder{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_")}{fileExtension}";
+					var iconPath2 = $"{GameSavePath}{Path.DirectorySeparatorChar}AllIcons{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_")}{fileExtension}";
 
 					Output.InfoR(Strings.FileSaveStrings.ClearCurrentLine);
 					Output.InfoR($"\rDownloading {achievement.Name}{fileExtension}");
@@ -90,7 +90,7 @@ namespace SAGG.Services {
 				Output.Info(Strings.FileSaveStrings.CreateFolderStart);
 
 				Directory.CreateDirectory(GameSavePath);
-				Directory.CreateDirectory($"{GameSavePath}{Path.DirectorySeparatorChar}IconsFolder");
+				Directory.CreateDirectory($"{GameSavePath}{Path.DirectorySeparatorChar}AllIcons");
 
 				foreach (var achievement in achievements) {
 					Directory.CreateDirectory($"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_")}");
