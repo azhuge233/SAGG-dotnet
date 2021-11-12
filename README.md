@@ -29,3 +29,5 @@ Find Steam game's AppID (usually it can be found in the Store page's URL), then 
 ```
 SAGG [AppID]
 ```
+
+See [screenshots](https://github.com/azhuge233/SAGG-dotnet/tree/master/Screenshots).
