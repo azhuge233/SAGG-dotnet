@@ -31,3 +31,5 @@ SAGG [AppID]
 ```
 
 See [screenshots](https://github.com/azhuge233/SAGG-dotnet/tree/master/Screenshots).
+
+Tested on Windows 10/11, macOS Catalina/Monterey, Debian 11.
