@@ -11,7 +11,7 @@ namespace SAGG.Services {
 		internal async Task Save(string gameName, List<Achievements> achievements) {
 			try {
 				Output.Info(Strings.FileSaveStrings.SavingStart);
-				gameName = gameName.Replace("/", "_").Replace("\\", "_");
+				gameName = gameName.Replace("/", "_").Replace("\\", "_").Replace(":", "_");
 				gameName = string.Join("_", gameName.Split(Path.GetInvalidPathChars()));
 				GameSavePath = $"{CurrentPath}{Path.DirectorySeparatorChar}{gameName}";
 
@@ -70,7 +70,7 @@ namespace SAGG.Services {
 
 				File.Create($"{GameSavePath}{Path.DirectorySeparatorChar}All counted {achievements.Count} achievements.txt");
 
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 				foreach (var achievement in achievements) {
 					sb.Clear();
 					sb.Append($"{achievement.Name}{Environment.NewLine}");
