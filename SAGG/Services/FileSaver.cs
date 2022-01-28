@@ -73,8 +73,8 @@ namespace SAGG.Services {
 				StringBuilder sb = new();
 				foreach (var achievement in achievements) {
 					sb.Clear();
-					sb.Append($"{achievement.Name}{Environment.NewLine}");
-					sb.Append($"{achievement.Description}{Environment.NewLine}");
+					sb.Append($"[b]{achievement.Name}[/b]{Environment.NewLine}");
+					sb.Append($"[i]{achievement.Description}[/i]{Environment.NewLine}");
 					await File.AppendAllTextAsync($"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_")}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_")}.txt", sb.ToString());
 				}
 
