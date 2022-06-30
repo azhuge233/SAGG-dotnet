@@ -32,9 +32,9 @@ jobs:
       
     - name: Create Zip
       run: |
-        zip -qq -r linux-x64.zip linux-x64/SAGG*
-        zip -qq -r win-x64.zip win-x64/SAGG*
-        zip -qq -r osx-x64.zip osx-x64/SAGG*
+        zip -qq -r linux-x64.zip linux-x64/SAGG
+        zip -qq -r win-x64.zip win-x64/SAGG.exe
+        zip -qq -r osx-x64.zip osx-x64/SAGG
       working-directory: bin/release
       
     - name: Upload zip
