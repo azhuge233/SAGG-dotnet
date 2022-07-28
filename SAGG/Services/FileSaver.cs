@@ -40,8 +40,8 @@ namespace SAGG.Services {
 					var uriWithoutQuery = achievement.IconUri.GetLeftPart(UriPartial.Path);
 					var fileExtension = Path.GetExtension(uriWithoutQuery);
 
-					var iconPath1 = $"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_")}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_")}{fileExtension}";
-					var iconPath2 = $"{GameSavePath}{Path.DirectorySeparatorChar}AllIcons{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_")}{fileExtension}";
+					var iconPath1 = $"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_").Replace("?", "_")}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_").Replace("?", "_")}{fileExtension}";
+					var iconPath2 = $"{GameSavePath}{Path.DirectorySeparatorChar}AllIcons{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_").Replace("?", "_")}{fileExtension}";
 
 					Output.InfoR(Strings.FileSaveStrings.ClearCurrentLine);
 					Output.InfoR($"\rDownloading {achievement.Name}{fileExtension}");
@@ -75,7 +75,7 @@ namespace SAGG.Services {
 					sb.Clear();
 					sb.Append($"[b]{achievement.Name}[/b]{Environment.NewLine}");
 					sb.Append($"[i]{achievement.Description}[/i]{Environment.NewLine}");
-					await File.AppendAllTextAsync($"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_")}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_")}.txt", sb.ToString());
+					await File.AppendAllTextAsync($"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_").Replace("?", "_")}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidFileNameChars())).Replace(".", "_").Replace("?", "_")}.txt", sb.ToString());
 				}
 
 				Output.Success(Strings.FileSaveStrings.SavingInfoDone);
@@ -93,7 +93,7 @@ namespace SAGG.Services {
 				Directory.CreateDirectory($"{GameSavePath}{Path.DirectorySeparatorChar}AllIcons");
 
 				foreach (var achievement in achievements) {
-					Directory.CreateDirectory($"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_")}");
+					Directory.CreateDirectory($"{GameSavePath}{Path.DirectorySeparatorChar}{string.Join("_", achievement.Name.Split(Path.GetInvalidPathChars())).Replace(".", "_").Replace("?", "_")}");
 				}
 
 				Output.Success(Strings.FileSaveStrings.CreateFolderDone);
