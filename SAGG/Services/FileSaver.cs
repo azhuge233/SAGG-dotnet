@@ -112,7 +112,7 @@ namespace SAGG.Services {
 		}
 
 		private static string GetFileName(Achievement achievement) {
-			return string.Join("_", achievement.DisplayName.Split(Path.GetInvalidFileNameChars())).Replace(".", "_").Replace("?", "_");
+			return string.Join("_", achievement.DisplayName.Split(Path.GetInvalidFileNameChars())).Replace(".", "_").Replace("?", "_").Trim();
 		}
 
 		public void Dispose() { 
