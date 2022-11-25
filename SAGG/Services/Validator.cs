@@ -1,9 +1,12 @@
 ﻿using SAGG.Modules;
+using SAGG.Models;
 
 namespace SAGG.Services {
 	internal class Validator : IDisposable {
-		internal bool Validate(string[] args) {
+		internal bool Validate(Config config, string[] args) {
 			try {
+				if (string.IsNullOrEmpty(config.Token) || string.IsNullOrEmpty(config.PreferedLanguage)) return false;
+
 				if(args.Length != 1) return false;
 
 				string appID = args[0];

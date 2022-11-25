@@ -9,6 +9,7 @@ namespace SAGG.Modules {
 				.AddTransient<Scraper>()
 				.AddTransient<Parser>()
 				.AddTransient<FileSaver>()
+				.AddTransient<JsonLoader>()
 				.BuildServiceProvider();
 		}
 	}

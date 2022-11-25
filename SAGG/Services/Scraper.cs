@@ -1,24 +1,19 @@
 ﻿using System.Text;
-using HtmlAgilityPack;
 using SAGG.Modules;
+using SAGG.Models;
 
 namespace SAGG.Services {
 	internal class Scraper: IDisposable {
-		internal HtmlDocument Scrape(string appID) {
+		internal async Task<string> Scrape(Config config, string appId) {
 			try {
 				Output.Info(Strings.ScrapeStrings.ScrapeStart);
-				string fullUrl = new StringBuilder().AppendFormat(Strings.ScrapeStrings.SteamUrl, appID).ToString();
+				string fullUrl = new StringBuilder().AppendFormat(Strings.ScrapeStrings.SteamUrl, config.Token, appId, config.PreferedLanguage).ToString();
 
-				var htmlWeb = new HtmlWeb();
-				htmlWeb.UserAgent = Strings.ScrapeStrings.UA;
-				htmlWeb.PreRequest += request => {
-					request.Headers.Add(Strings.ScrapeStrings.Header);
-					return true;
-				};
-				var result = htmlWeb.Load(fullUrl);
+				using var client = new HttpClient();
+				var response = await client.GetAsync(fullUrl);
 
 				Output.Success(Strings.ScrapeStrings.SrapeDone);
-				return result;
+				return await response.Content.ReadAsStringAsync();
 			} catch (Exception) {
 				Output.Error(Strings.ScrapeStrings.ScrapeError);
 				throw;

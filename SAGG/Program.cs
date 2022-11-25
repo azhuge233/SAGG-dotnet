@@ -9,12 +9,14 @@ namespace SAGG {
                 var services = DIBuilder.Build();
 
                 using (services as IDisposable) {
-                    if (!services.GetRequiredService<Validator>().Validate(args)) {
+                    var config = services.GetRequiredService<JsonLoader>().LoadConfig();
+
+                    if (!services.GetRequiredService<Validator>().Validate(config, args)) {
                         throw new Exception(message: Strings.MainStrings.ValidationFailed);
                     }
 
-                    var htmlDoc = services.GetRequiredService<Scraper>().Scrape(args[0]);
-                    var result = services.GetRequiredService<Parser>().Parse(htmlDoc);
+                    var jsonData = await services.GetRequiredService<Scraper>().Scrape(config, args[0]);
+                    var result = services.GetRequiredService<Parser>().Parse(jsonData);
 
                     await services.GetRequiredService<FileSaver>().Save(result.Item1, result.Item2);
                 }
