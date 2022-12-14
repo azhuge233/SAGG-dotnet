@@ -10,10 +10,13 @@ namespace SAGG {
 
                 using (services as IDisposable) {
                     var config = services.GetRequiredService<JsonLoader>().LoadConfig();
+                    var validator = services.GetRequiredService<Validator>();
 
-                    if (!services.GetRequiredService<Validator>().Validate(config, args)) {
-                        throw new Exception(message: Strings.MainStrings.ValidationFailed);
-                    }
+                    if (!validator.Validate(config))
+                        throw new Exception(message: Strings.MainStrings.ConfigValidationFailed);
+
+					if (!validator.Validate(args))
+                        throw new Exception(message: Strings.MainStrings.AppIDValidationFailed);
 
                     var jsonData = await services.GetRequiredService<Scraper>().Scrape(config, args[0]);
                     var result = services.GetRequiredService<Parser>().Parse(jsonData);
