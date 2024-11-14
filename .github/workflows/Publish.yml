@@ -17,21 +17,21 @@ jobs:
 
     steps:
     - name: Checkout source code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 9.0.x
     
     - name: Publish
       shell: pwsh
       run: |
         Set-Location "$env:GITHUB_WORKSPACE"
         dotnet restore
-        dotnet publish -c release -r linux-x64 -p:PublishDir="$env:GITHUB_WORKSPACE\Release\linux-x64" -p:PublishSingleFile=true --sc
-        dotnet publish -c release -r win-x64 -p:PublishDir="$env:GITHUB_WORKSPACE\Release\win-x64" -p:PublishSingleFile=true --sc
-        dotnet publish -c release -r osx-x64 -p:PublishDir="$env:GITHUB_WORKSPACE\Release\osx-x64" -p:PublishSingleFile=true --sc
+        dotnet publish -c release -r linux-x64 -p:PublishDir="$env:GITHUB_WORKSPACE\Release\linux-x64"
+        dotnet publish -c release -r win-x64 -p:PublishDir="$env:GITHUB_WORKSPACE\Release\win-x64"
+        dotnet publish -c release -r osx-x64 -p:PublishDir="$env:GITHUB_WORKSPACE\Release\osx-x64"
         Compress-Archive -Path "$env:GITHUB_WORKSPACE\Release\win-x64\" -DestinationPath "SAGG-win-x64.zip"
         Compress-Archive -Path "$env:GITHUB_WORKSPACE\Release\linux-x64\" -DestinationPath "SAGG-linux-x64.zip"
         Compress-Archive -Path "$env:GITHUB_WORKSPACE\Release\osx-x64\" -DestinationPath "SAGG-osx-x64.zip"
