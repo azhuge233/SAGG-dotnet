@@ -1,19 +1,20 @@
-﻿using System.IO;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Text;
 using ImageMagick;
 using SAGG.Models;
 using SAGG.Modules;
 
 namespace SAGG.Services {
 	internal class FileSaver:IDisposable {
+		private readonly char[] invalidChars = { '/', '\\', ':', '?', '!' };
+
 		private readonly string CurrentPath = $"{Environment.CurrentDirectory}";
 		private string GameSavePath = string.Empty;
 
 		internal async Task Save(string gameName, List<Achievement> achievements) {
 			try {
 				Output.Info(Strings.FileSaveStrings.SavingStart);
-				gameName = gameName.Replace("/", "_").Replace("\\", "_").Replace(":", "_");
+
+				gameName = string.Join("_", gameName.Split(invalidChars));
 				gameName = string.Join("_", gameName.Split(Path.GetInvalidPathChars()));
 				GameSavePath = $"{CurrentPath}{Path.DirectorySeparatorChar}{gameName}";
 
